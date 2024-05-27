@@ -18,7 +18,7 @@ def is_path_filled(style):
     return "fill:" in style
 
 # Todo deal with viewBoxes
-def parse_root_custom(root: ElementTree.Element, transform_origin=True, canvas_height=None, draw_hidden=False,
+def parse_root_custom(root: ElementTree.Element, transform_origin=False, canvas_height=None, draw_hidden=False,
                visible_root=True, root_transformation=None) -> Tuple[List[Curve], List[dict]]:
 
     """
@@ -69,7 +69,7 @@ def parse_root_custom(root: ElementTree.Element, transform_origin=True, canvas_h
         if draw_hidden or visible:
             if element.tag == "{%s}path" % NAMESPACES["svg"]:
                 style = element.attrib['style']
-                path_color = get_color(style, attribute="stroke")
+                path_color = get_color(style, attribute="fill")
                 print(path_color)
                 cut = (path_color in ["#ff0000", "red"])
                 path = Path(element.attrib['d'], canvas_height, transform_origin, transformation, cut=cut)
